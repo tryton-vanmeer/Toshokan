@@ -1,5 +1,11 @@
 package main
 
+import (
+	"os"
+
+	"github.com/tryton-vanmeer/toshokan/lib/cli"
+)
+
 func main() {
-	println("Hello, World!")
+	cli.Run(os.Args)
 }
