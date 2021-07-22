@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -17,6 +18,9 @@ func Run() error {
 	if !validateArgs() {
 		return nil
 	}
+
+	search := getSearchTerms()
+	fmt.Printf("SEARCH: %s", search)
 
 	return nil
 }
