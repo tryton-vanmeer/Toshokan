@@ -12,7 +12,7 @@ import (
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
 
 // get the users configured steam libraries
-func GetLibraryFolders() []string {
+func LibraryFolders() []string {
 	// get the users HOME
 	home, err := os.UserHomeDir()
 

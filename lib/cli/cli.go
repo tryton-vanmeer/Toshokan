@@ -20,7 +20,7 @@ func preRunHelp(cmd *cobra.Command, args []string) error {
 func searchCmd(cmd *cobra.Command, args []string) {
 	// search_terms := strings.Join(args, " ")
 
-	library_folders := steam.GetLibraryFolders()
+	library_folders := steam.LibraryFolders()
 
 	fmt.Println(library_folders)
 }
