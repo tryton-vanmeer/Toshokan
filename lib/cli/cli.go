@@ -24,7 +24,9 @@ func searchCmd(cmd *cobra.Command, args []string) {
 
 func Run() error {
 	var rootCmd = &cobra.Command{
-		Use:     "toshokan",
+		Use:     "toshokan [flags] SEARCH...",
+		Short:   "Search installed Steam games to find their APPID.",
+		Long:    "Toshokan is a CLI tool for searching your installed Steam games to find their APPID.",
 		PreRunE: preRunHelp,
 		Run:     searchCmd,
 	}
