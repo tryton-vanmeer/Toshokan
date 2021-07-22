@@ -2,6 +2,8 @@ package steam
 
 import (
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/Jleagle/steam-go/steamvdf"
 )
@@ -9,14 +11,22 @@ import (
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
 var STEAM_LIBRARY_FOLDERS_VDF = fmt.Sprintf("%s/libraryfolders.vdf", STEAM_APPS_ROOT)
 
-func GetLibraryFolders() ([]string, error) {
+func GetLibraryFolders() []string {
+	home, err := os.UserHomeDir()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(home)
+
 	kv, err := steamvdf.ReadFile(STEAM_LIBRARY_FOLDERS_VDF)
 
 	if err != nil {
-		return nil, fmt.Errorf("unable to read: %s", STEAM_LIBRARY_FOLDERS_VDF)
+		log.Fatalf("cannot read: %s", STEAM_LIBRARY_FOLDERS_VDF)
 	}
 
 	fmt.Println(kv)
 
-	return []string{kv.Key}, nil
+	return []string{kv.Key}
 }
