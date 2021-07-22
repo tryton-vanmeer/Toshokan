@@ -2,7 +2,8 @@ package steam
 
 import "fmt"
 
-var STEAM_LIBRARY_FOLDERS_VDF = ".steam/steam/steamapps/libraryfolders.vdf"
+var STEAM_APPS_ROOT = ".steam/steam/steamapps"
+var STEAM_LIBRARY_FOLDERS_VDF = fmt.Sprintf("%s/libraryfolders.vdf", STEAM_APPS_ROOT)
 
 func getLibraryFolders() []string {
 	return []string{"hello"}
