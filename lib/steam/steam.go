@@ -18,9 +18,8 @@ func GetLibraryFolders() []string {
 		log.Fatal(err)
 	}
 
-	fmt.Println(home)
-
-	kv, err := steamvdf.ReadFile(STEAM_LIBRARY_FOLDERS_VDF)
+	vdf_path := fmt.Sprintf("%s/%s/%s", home, STEAM_APPS_ROOT, STEAM_LIBRARY_FOLDERS_VDF)
+	kv, err := steamvdf.ReadFile(vdf_path)
 
 	if err != nil {
 		log.Fatalf("cannot read: %s", STEAM_LIBRARY_FOLDERS_VDF)
