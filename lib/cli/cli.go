@@ -1,9 +1,8 @@
 package cli
 
 import (
-	"fmt"
 	"os"
-	"strings"
+	"toshokan/lib/steam"
 
 	"github.com/spf13/cobra"
 )
@@ -18,8 +17,9 @@ func preRunHelp(cmd *cobra.Command, args []string) error {
 }
 
 func searchCmd(cmd *cobra.Command, args []string) {
-	search_terms := strings.Join(args, " ")
-	fmt.Println(search_terms)
+	// search_terms := strings.Join(args, " ")
+
+	steam.Test()
 }
 
 func Run() error {
