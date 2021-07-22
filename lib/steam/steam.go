@@ -4,28 +4,43 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/Jleagle/steam-go/steamvdf"
 )
 
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
-var STEAM_LIBRARY_FOLDERS_VDF = "libraryfolders.vdf"
 
+// get the users configured steam libraries
 func GetLibraryFolders() []string {
+	// get the users HOME
 	home, err := os.UserHomeDir()
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	vdf_path := fmt.Sprintf("%s/%s/%s", home, STEAM_APPS_ROOT, STEAM_LIBRARY_FOLDERS_VDF)
+	// create the 'libraryfolders.vdf' path
+	vdf_path := fmt.Sprintf("%s/%s/%s", home, STEAM_APPS_ROOT, "libraryfolders.vdf")
+
 	kv, err := steamvdf.ReadFile(vdf_path)
 
 	if err != nil {
-		log.Fatalf("cannot read: %s", STEAM_LIBRARY_FOLDERS_VDF)
+		log.Fatalf("cannot read: %s", vdf_path)
 	}
 
-	fmt.Println(kv)
+	folders := []string{}
 
-	return []string{kv.Key}
+	// if the key is an integer, it maps to a steam library
+	for key := range kv.GetChildrenAsMap() {
+		_, err := strconv.Atoi(key)
+
+		if err == nil {
+			child, _ := kv.GetChild(key)
+
+			folders = append(folders, child.Value)
+		}
+	}
+
+	return folders
 }
