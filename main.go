@@ -1,11 +1,7 @@
 package main
 
-import (
-	"os"
-
-	"github.com/tryton-vanmeer/toshokan/lib/cli"
-)
+import "toshokan/lib/cli"
 
 func main() {
-	cli.Run(os.Args)
+	cli.Run()
 }
