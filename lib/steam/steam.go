@@ -9,7 +9,7 @@ import (
 )
 
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
-var STEAM_LIBRARY_FOLDERS_VDF = fmt.Sprintf("%s/libraryfolders.vdf", STEAM_APPS_ROOT)
+var STEAM_LIBRARY_FOLDERS_VDF = "libraryfolders.vdf"
 
 func GetLibraryFolders() []string {
 	home, err := os.UserHomeDir()
