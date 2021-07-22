@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -10,10 +9,14 @@ func validateArgs() bool {
 	return len(os.Args) >= 2
 }
 
-func Run() {
+func getSearchTerms() string {
+	return strings.Join(os.Args[1:], " ")
+}
+
+func Run() error {
 	if !validateArgs() {
-		fmt.Println("Not enough arguments")
-	} else {
-		fmt.Printf("SEARCH: %s", strings.Join(os.Args[1:], " "))
+		return nil
 	}
+
+	return nil
 }
