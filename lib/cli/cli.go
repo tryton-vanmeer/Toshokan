@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"os"
 	"toshokan/lib/steam"
 
@@ -19,7 +20,13 @@ func preRunHelp(cmd *cobra.Command, args []string) error {
 func searchCmd(cmd *cobra.Command, args []string) {
 	// search_terms := strings.Join(args, " ")
 
-	steam.Test()
+	library_folders, err := steam.GetLibraryFolders()
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(library_folders)
 }
 
 func Run() error {
