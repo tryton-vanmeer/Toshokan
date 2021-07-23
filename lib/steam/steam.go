@@ -55,6 +55,8 @@ func ParseAppManifest(path string) Game {
 }
 
 // return a list of the users installed apps
-func InstalledGames() {
+func InstalledGames() (games []Game) {
+	directories := LibraryFolders()
 
+	fmt.Println(directories)
 }
