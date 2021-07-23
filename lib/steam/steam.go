@@ -43,6 +43,7 @@ func LibraryFolders() (directories []string) {
 	return
 }
 
-func FindAppManifests(directory string) {
+// return a list of the users installed apps
+func InstalledApps() {
 
 }
