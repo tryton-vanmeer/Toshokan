@@ -15,7 +15,7 @@ var STEAM_APPS_ROOT = ".steam/steam/steamapps"
 
 type App struct {
 	name          string
-	appid         int
+	appid         string
 	libraryFolder string
 }
 
@@ -53,11 +53,17 @@ func LibraryFolders() (directories []string) {
 
 // parse an appmanifest_$id.acf and return a Game object
 func ParseAppManifest(libraryFolder string, filename string) App {
-	// app_manifest_path := fmt.Sprintf("%s/%s", libraryFolder, filename)
+	app_manifest_path := fmt.Sprintf("%s/%s", libraryFolder, filename)
+	kv, err := steamvdf.ReadFile(app_manifest_path)
+	if err != nil {
+		log.Fatalf("error reading %s", app_manifest_path)
+	}
+
+	app_manifest := kv.GetChildrenAsMap()
 
 	return App{
-		name:          "",
-		appid:         0,
+		name:          app_manifest["name"],
+		appid:         app_manifest["appid"],
 		libraryFolder: libraryFolder,
 	}
 }
