@@ -90,3 +90,7 @@ func InstalledGames() (games []App) {
 
 	return
 }
+
+func SearchInstalledGames(search string) (games []App) {
+	return
+}
