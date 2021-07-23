@@ -13,7 +13,7 @@ import (
 
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
 
-type Game struct {
+type App struct {
 	name          string
 	appid         int
 	libraryFolder string
@@ -52,10 +52,10 @@ func LibraryFolders() (directories []string) {
 }
 
 // parse an appmanifest_$id.acf and return a Game object
-func ParseAppManifest(libraryFolder string, filename string) Game {
+func ParseAppManifest(libraryFolder string, filename string) App {
 	// app_manifest_path := fmt.Sprintf("%s/%s", libraryFolder, filename)
 
-	return Game{
+	return App{
 		name:          "",
 		appid:         0,
 		libraryFolder: libraryFolder,
@@ -63,7 +63,7 @@ func ParseAppManifest(libraryFolder string, filename string) Game {
 }
 
 // return a list of the users installed apps
-func InstalledGames() (games []Game) {
+func InstalledGames() (games []App) {
 	folders := LibraryFolders()
 
 	// search library directories for app manifest files
