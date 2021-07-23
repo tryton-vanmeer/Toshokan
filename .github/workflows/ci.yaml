@@ -19,6 +19,9 @@ jobs:
         with:
           go-version: 1.16
 
+      - name: Install Go Lint
+        run: sudo apt-get install golint
+
       - name: Lint
         run: make lint
 
