@@ -3,10 +3,10 @@
 all: build
 
 build:
-	go build -o bin/toshokan src/main.go
+	@go build -o bin/toshokan src/main.go
 
 test:
-	go test ./src/util
+	@go test ./src/util
 
 clean:
 	rm -rf bin/
