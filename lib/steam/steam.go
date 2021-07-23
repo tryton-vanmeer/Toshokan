@@ -11,6 +11,11 @@ import (
 
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
 
+type Game struct {
+	name  string
+	appid int
+}
+
 // get the users configured steam libraries
 func LibraryFolders() (directories []string) {
 	// get the users HOME
