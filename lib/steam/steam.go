@@ -2,9 +2,11 @@ package steam
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/Jleagle/steam-go/steamvdf"
 )
@@ -50,13 +52,29 @@ func LibraryFolders() (directories []string) {
 }
 
 // parse an appmanifest_$id.acf and return a Game object
-func ParseAppManifest(path string) Game {
-	return Game{}
+func ParseAppManifest(libraryFolder string, filename string) (game Game) {
+	return
 }
 
 // return a list of the users installed apps
 func InstalledGames() (games []Game) {
-	directories := LibraryFolders()
+	folders := LibraryFolders()
 
-	fmt.Println(directories)
+	// search library directories for app manifest files
+	for _, folder := range folders {
+		files, err := ioutil.ReadDir(folder)
+
+		if err != nil {
+			log.Fatalf("error reading directory: %s", folder)
+		}
+
+		for _, file := range files {
+			if strings.Contains(file.Name(), "appmanifest") {
+				game := ParseAppManifest(folder, file.Name())
+				games = append(games, game)
+			}
+		}
+	}
+
+	return
 }
