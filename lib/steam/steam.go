@@ -44,6 +44,6 @@ func LibraryFolders() (directories []string) {
 }
 
 // return a list of the users installed apps
-func InstalledApps() {
+func InstalledGames() {
 
 }
