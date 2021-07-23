@@ -52,8 +52,14 @@ func LibraryFolders() (directories []string) {
 }
 
 // parse an appmanifest_$id.acf and return a Game object
-func ParseAppManifest(libraryFolder string, filename string) (game Game) {
-	return
+func ParseAppManifest(libraryFolder string, filename string) Game {
+	// app_manifest_path := fmt.Sprintf("%s/%s", libraryFolder, filename)
+
+	return Game{
+		name:          "",
+		appid:         0,
+		libraryFolder: libraryFolder,
+	}
 }
 
 // return a list of the users installed apps
