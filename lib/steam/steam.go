@@ -48,6 +48,11 @@ func LibraryFolders() (directories []string) {
 	return
 }
 
+// parse an appmanifest_$id.acf and return a Game object
+func ParseAppManifest(path string) Game {
+	return Game{}
+}
+
 // return a list of the users installed apps
 func InstalledGames() {
 
