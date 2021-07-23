@@ -1,7 +1,7 @@
 package main
 
 import (
-	"toshokan/lib/cli"
+	"toshokan/src/cli"
 )
 
 func main() {
