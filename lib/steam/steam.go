@@ -35,7 +35,7 @@ func LibraryFolders() (directories []string, err error) {
 
 		if err == nil {
 			child, _ := kv.GetChild(key)
-			directories = append(directories, child.Value)
+			directories = append(directories, child.Value+"/steamapps")
 		}
 	}
 
