@@ -12,8 +12,9 @@ import (
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
 
 type Game struct {
-	name  string
-	appid int
+	name          string
+	appid         int
+	libraryFolder string
 }
 
 // get the users configured steam libraries
