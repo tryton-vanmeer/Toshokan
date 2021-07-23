@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"toshokan/lib/util"
 
 	"github.com/Jleagle/steam-go/steamvdf"
 )
@@ -95,7 +96,7 @@ func SearchInstalledGames(search string) (games []App) {
 	installed_games := InstalledGames()
 
 	for _, game := range installed_games {
-		if strings.Contains(strings.ToLower(game.Name), search) {
+		if util.StringContains(game.Name, search) {
 			games = append(games, game)
 		}
 	}
