@@ -14,9 +14,9 @@ import (
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
 
 type App struct {
-	name          string
-	appid         string
-	libraryFolder string
+	Name          string
+	AppID         string
+	LibraryFolder string
 }
 
 // get the users configured steam libraries
@@ -62,9 +62,9 @@ func ParseAppManifest(libraryFolder string, filename string) App {
 	app_manifest := kv.GetChildrenAsMap()
 
 	return App{
-		name:          app_manifest["name"],
-		appid:         app_manifest["appid"],
-		libraryFolder: libraryFolder,
+		Name:          app_manifest["name"],
+		AppID:         app_manifest["appid"],
+		LibraryFolder: libraryFolder,
 	}
 }
 
@@ -95,7 +95,7 @@ func SearchInstalledGames(search string) (games []App) {
 	installed_games := InstalledGames()
 
 	for _, game := range installed_games {
-		if strings.Contains(strings.ToLower(game.name), search) {
+		if strings.Contains(strings.ToLower(game.Name), search) {
 			games = append(games, game)
 		}
 	}
