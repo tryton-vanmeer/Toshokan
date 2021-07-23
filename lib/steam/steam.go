@@ -92,5 +92,13 @@ func InstalledGames() (games []App) {
 }
 
 func SearchInstalledGames(search string) (games []App) {
+	installed_games := InstalledGames()
+
+	for _, game := range installed_games {
+		if strings.Contains(strings.ToLower(game.name), search) {
+			games = append(games, game)
+		}
+	}
+
 	return
 }
