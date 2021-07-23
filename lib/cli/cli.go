@@ -21,7 +21,9 @@ func preRunHelp(cmd *cobra.Command, args []string) error {
 func searchCmd(cmd *cobra.Command, args []string) {
 	games := steam.SearchInstalledGames(strings.Join(args, " "))
 
-	fmt.Println(games)
+	for _, game := range games {
+		fmt.Printf("%s (%s) [%s]\n", game.Name, game.AppID, game.LibraryFolder)
+	}
 }
 
 func Run() error {
