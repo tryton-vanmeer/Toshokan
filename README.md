@@ -1,6 +1,6 @@
 # Toshokan (図書館 Library)
 
-Toshokan is a CLI tool for searching your installed Steam games to find their APPID
+Toshokan is a CLI tool for interacting with your Steam library on Linux
 
 
 ## Notes
