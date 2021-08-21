@@ -15,9 +15,10 @@ import (
 var STEAM_APPS_ROOT = ".steam/steam/steamapps"
 
 type App struct {
-	Name          string
-	AppID         string
-	LibraryFolder string
+	Name             string
+	AppID            string
+	LibraryFolder    string
+	InstallDirectory string
 }
 
 // get the users configured steam libraries
@@ -64,9 +65,10 @@ func ParseAppManifest(libraryFolder string, filename string) App {
 	app_manifest := kv.GetChildrenAsMap()
 
 	return App{
-		Name:          app_manifest["name"],
-		AppID:         app_manifest["appid"],
-		LibraryFolder: libraryFolder,
+		Name:             app_manifest["name"],
+		AppID:            app_manifest["appid"],
+		LibraryFolder:    libraryFolder,
+		InstallDirectory: strings.Join([]string{libraryFolder, "common", app_manifest["installdir"]}, "/"),
 	}
 }
 
