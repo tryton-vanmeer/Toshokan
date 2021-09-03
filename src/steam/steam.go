@@ -21,6 +21,20 @@ type App struct {
 	InstallDirectory string
 }
 
+func (app App) ToString() string {
+	builder := strings.Builder{}
+
+	builder.WriteString(app.Name)
+	builder.WriteString(" ")
+	builder.WriteString(app.AppID)
+	builder.WriteString(" [")
+	builder.WriteString(
+		util.FileHyperlink(app.InstallDirectory, "Install Directory"))
+	builder.WriteString("]")
+
+	return builder.String()
+}
+
 // get the users configured steam libraries
 func LibraryFolders() (directories []string) {
 	// get the users HOME
