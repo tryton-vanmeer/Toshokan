@@ -32,7 +32,26 @@ func (app App) ToString() string {
 		util.FileHyperlink(app.InstallDirectory, "Install Directory"))
 	builder.WriteString("]")
 
+	if app.isProton() {
+		builder.WriteString(" [")
+		builder.WriteString(
+			util.FileHyperlink(app.protonPrefix(), "Proton Prefix"))
+		builder.WriteString("]")
+	}
+
 	return builder.String()
+}
+
+// get path game would use for it's proton prefix
+func (app App) protonPrefix() string {
+	return fmt.Sprintf("%s/compatdata/%s", app.LibraryFolder, app.AppID)
+}
+
+// check if game uses proton
+func (app App) isProton() bool {
+	_, err := os.Stat(app.protonPrefix())
+
+	return err == nil
 }
 
 // get the users configured steam libraries
