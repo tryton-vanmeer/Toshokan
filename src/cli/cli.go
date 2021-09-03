@@ -18,7 +18,7 @@ var searchCmd = &cobra.Command{
 		games := steam.SearchInstalledGames(strings.Join(args, " "))
 
 		for _, game := range games {
-			fmt.Printf("%s (%s) %s\n",
+			fmt.Printf("%s (%s) [%s]\n",
 				game.Name,
 				game.AppID,
 				util.FileHyperlink(game.InstallDirectory, "Install Directory"),
