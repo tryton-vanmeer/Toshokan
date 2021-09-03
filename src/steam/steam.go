@@ -57,7 +57,7 @@ func (app App) isProton() bool {
 }
 
 // get the users configured steam libraries
-func LibraryFolders() (directories []string) {
+func libraryFolders() (directories []string) {
 	// get the users HOME
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -90,7 +90,7 @@ func LibraryFolders() (directories []string) {
 }
 
 // parse an appmanifest_$id.acf and return a Game object
-func ParseAppManifest(libraryFolder string, filename string) App {
+func parseAppManifest(libraryFolder string, filename string) App {
 	app_manifest_path := fmt.Sprintf("%s/%s", libraryFolder, filename)
 	kv, err := steamvdf.ReadFile(app_manifest_path)
 	if err != nil {
@@ -108,8 +108,8 @@ func ParseAppManifest(libraryFolder string, filename string) App {
 }
 
 // return a list of the users installed apps
-func InstalledGames() (games []App) {
-	folders := LibraryFolders()
+func installedGames() (games []App) {
+	folders := libraryFolders()
 
 	// search library directories for app manifest files
 	for _, folder := range folders {
@@ -121,7 +121,7 @@ func InstalledGames() (games []App) {
 
 		for _, file := range files {
 			if strings.Contains(file.Name(), "appmanifest") {
-				game := ParseAppManifest(folder, file.Name())
+				game := parseAppManifest(folder, file.Name())
 				games = append(games, game)
 			}
 		}
@@ -131,7 +131,7 @@ func InstalledGames() (games []App) {
 }
 
 func SearchInstalledGames(search string) (games []App) {
-	installed_games := InstalledGames()
+	installed_games := installedGames()
 
 	for _, game := range installed_games {
 		if util.StringContains(game.Name, search) {
