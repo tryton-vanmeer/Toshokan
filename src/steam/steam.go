@@ -49,6 +49,8 @@ func (app App) protonPrefix() string {
 
 // check if game uses proton
 func (app App) isProton() bool {
+	// if the proton prefix path exists, assume it is using proton
+	// game can still be using proton, but hasn't performed first launch (so path won't exist)
 	_, err := os.Stat(app.protonPrefix())
 
 	return err == nil
