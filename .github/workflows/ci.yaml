@@ -14,11 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-go@v2
-      - uses: extractions/setup-just@v1
+
+      - name: Dowload Dependencies
+        run: go mod vendor -v
 
       - name: Build
-        run: just
+        run: go build -o bin/toshokan main.go
 
       - name: Test
-        run: just test
-
+        run: go test ./... -v --cover
