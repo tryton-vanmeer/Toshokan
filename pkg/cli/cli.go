@@ -11,7 +11,7 @@ import (
 var searchCmd = &cobra.Command{
 	Use:     "search [flags] ARGS...",
 	Args:    cobra.MinimumNArgs(1),
-	Short:   "Search installed Steam games to find their APPID",
+	Short:   "Search installed Steam games.",
 	Example: "toshokan half life",
 	Run: func(cmd *cobra.Command, args []string) {
 		games := steam.SearchInstalledGames(strings.Join(args, " "))
