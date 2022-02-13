@@ -5,7 +5,7 @@
 	go mod vendor -v
 
 @test:
-	go test ./src/util
+	go test ./... -v --cover
 
 @clean:
 	rm -rf bin/
