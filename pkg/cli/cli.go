@@ -8,6 +8,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var listCmd = &cobra.Command{
+	Use:   "list [flags]",
+	Args:  cobra.NoArgs,
+	Short: "List installed Steam games.",
+	Run: func(cmd *cobra.Command, args []string) {
+		games := steam.InstalledGames()
+
+		for _, game := range games {
+			fmt.Println(game.ToString())
+		}
+	},
+}
+
 var searchCmd = &cobra.Command{
 	Use:   "search [flags] ARGS...",
 	Args:  cobra.MinimumNArgs(1),
@@ -26,6 +39,7 @@ func Run() {
 		Long: "Toshokan is a CLI tool for interacting with your Steam library on Linux",
 	}
 
+	rootCmd.AddCommand(listCmd)
 	rootCmd.AddCommand(searchCmd)
 
 	rootCmd.Execute()
