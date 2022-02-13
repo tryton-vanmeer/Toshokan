@@ -22,25 +22,7 @@ type App struct {
 }
 
 func (app App) ToString() string {
-	builder := strings.Builder{}
-
-	builder.WriteString(app.Name)
-	builder.WriteString(" ")
-	builder.WriteString(
-		util.Hyperlink(app.getStorePage(), app.AppID))
-	builder.WriteString(" [")
-	builder.WriteString(
-		util.FileHyperlink(app.InstallDirectory, "Install Directory"))
-	builder.WriteString("]")
-
-	if app.isProton() {
-		builder.WriteString(" [")
-		builder.WriteString(
-			util.FileHyperlink(app.protonPrefix(), "Proton Prefix"))
-		builder.WriteString("]")
-	}
-
-	return builder.String()
+	return fmt.Sprintf("%s (%s)", app.Name, app.AppID)
 }
 
 // get the URL for the apps page on Steam
