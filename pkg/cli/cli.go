@@ -9,10 +9,10 @@ import (
 )
 
 var searchCmd = &cobra.Command{
-	Use:     "search [flags] ARGS...",
-	Args:    cobra.MinimumNArgs(1),
-	Short:   "Search installed Steam games.",
-	Example: "toshokan half life",
+	Use:   "search [flags] ARGS...",
+	Args:  cobra.MinimumNArgs(1),
+	Short: "Search installed Steam games.",
+	Long:  "Search installed Steam games.\n\nReturns information like appid, install directory, and proton prefix if it has one.",
 	Run: func(cmd *cobra.Command, args []string) {
 		games := steam.SearchInstalledGames(strings.Join(args, " "))
 
