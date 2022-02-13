@@ -1,6 +1,6 @@
 package main
 
-import "toshokan/src/cli"
+import "toshokan/pkg/cli"
 
 func main() {
 	cli.Run()

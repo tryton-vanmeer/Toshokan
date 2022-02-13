@@ -1,5 +1,5 @@
 @build:
-	go build -o bin/toshokan src/main.go
+	go build -o bin/toshokan main.go
 
 @vendor:
 	go mod vendor -v

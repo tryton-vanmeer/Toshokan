@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"toshokan/src/util"
+	"toshokan/pkg/util"
 
 	"github.com/Jleagle/steam-go/steamvdf"
 )

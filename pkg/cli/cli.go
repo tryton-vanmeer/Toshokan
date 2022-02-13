@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 	"strings"
-	"toshokan/src/steam"
+	"toshokan/pkg/steam"
 
 	"github.com/spf13/cobra"
 )
