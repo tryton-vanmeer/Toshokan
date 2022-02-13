@@ -26,7 +26,8 @@ func (app App) ToString() string {
 
 	builder.WriteString(app.Name)
 	builder.WriteString(" ")
-	builder.WriteString(app.AppID)
+	builder.WriteString(
+		util.Hyperlink(app.getStorePage(), app.AppID))
 	builder.WriteString(" [")
 	builder.WriteString(
 		util.FileHyperlink(app.InstallDirectory, "Install Directory"))
@@ -40,6 +41,11 @@ func (app App) ToString() string {
 	}
 
 	return builder.String()
+}
+
+// get the URL for the apps page on Steam
+func (app App) getStorePage() string {
+	return fmt.Sprintf("https://store.steampowered.com/app/%s", app.AppID)
 }
 
 // get path game would use for it's proton prefix
