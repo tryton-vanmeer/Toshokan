@@ -71,10 +71,6 @@ func libraryFolders() (directories []string) {
 		log.Fatalf("error reading %s", vdf_path)
 	}
 
-	// add the default library
-	directories = append(directories,
-		fmt.Sprintf("%s/%s", home, STEAM_APPS_ROOT))
-
 	// if the key is an integer, it maps to a steam library
 	for key := range kv.GetChildrenAsMap() {
 		_, err := strconv.Atoi(key)
