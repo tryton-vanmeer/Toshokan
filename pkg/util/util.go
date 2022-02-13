@@ -14,5 +14,9 @@ func StringContains(s string, substr string) bool {
 }
 
 func FileHyperlink(file string, text string) string {
-	return fmt.Sprintf("\033]8;;file://%s\033\\%s\033]8;;\033\\", file, text)
+	return Hyperlink("file://"+file, text)
+}
+
+func Hyperlink(url string, text string) string {
+	return fmt.Sprintf("\033]8;;%s\033\\%s\033]8;;\033\\", url, text)
 }
