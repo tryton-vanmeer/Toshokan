@@ -46,7 +46,20 @@ var infoCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Printf("%s (%s)\n", game.Name, game.AppID)
+		builder := strings.Builder{}
+
+		builder.WriteString(fmt.Sprintf("Name: %s\n", game.Name))
+		builder.WriteString(fmt.Sprintf("Store Page: %s\n", game.GetStorePage()))
+
+		builder.WriteString(
+			fmt.Sprintf("Install Directory: file://%s\n", game.LibraryFolder))
+
+		if game.IsProton() {
+			builder.WriteString(
+				fmt.Sprintf("Proton Prefix: file://%s", game.ProtonPrefix()))
+		}
+
+		fmt.Println(builder.String())
 	},
 }
 
