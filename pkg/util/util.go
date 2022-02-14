@@ -13,8 +13,8 @@ func StringContains(s string, substr string) bool {
 	return strings.Contains(s, substr)
 }
 
-func FileHyperlink(file string, text string) string {
-	return Hyperlink("file://"+file, text)
+func FileHyperlink(file string) string {
+	return Hyperlink("file://"+file, file)
 }
 
 func Hyperlink(url string, text string) string {
