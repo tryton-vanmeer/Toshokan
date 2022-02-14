@@ -125,3 +125,15 @@ func SearchInstalledGames(search string) (games []App) {
 
 	return
 }
+
+func GetGame(appid string) (App, error) {
+	installed_games := InstalledGames()
+
+	for _, game := range installed_games {
+		if game.AppID == appid {
+			return game, nil
+		}
+	}
+
+	return App{}, fmt.Errorf("no game found with appid: %s", appid)
+}
