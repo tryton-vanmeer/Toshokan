@@ -48,15 +48,15 @@ var infoCmd = &cobra.Command{
 
 		builder := strings.Builder{}
 
-		builder.WriteString(fmt.Sprintf("Name: %s\n", game.Name))
-		builder.WriteString(fmt.Sprintf("Store Page: %s\n", game.GetStorePage()))
+		builder.WriteString(fmt.Sprintf("🎮 %s\n", game.Name))
+		builder.WriteString(fmt.Sprintf("🌐 %s\n", game.GetStorePage()))
 
 		builder.WriteString(
-			fmt.Sprintf("Install Directory: file://%s\n", game.LibraryFolder))
+			fmt.Sprintf("📂 file://%s\n", game.LibraryFolder))
 
 		if game.IsProton() {
 			builder.WriteString(
-				fmt.Sprintf("Proton Prefix: file://%s", game.ProtonPrefix()))
+				fmt.Sprintf("⚛️  file://%s", game.ProtonPrefix()))
 		}
 
 		fmt.Println(builder.String())
