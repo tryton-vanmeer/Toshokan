@@ -65,6 +65,7 @@ var infoCmd = &cobra.Command{
 
 func Run() {
 	var rootCmd = &cobra.Command{
+		Use:  "toshokan [command]",
 		Long: "Toshokan is a CLI tool for interacting with your Steam library on Linux",
 	}
 
