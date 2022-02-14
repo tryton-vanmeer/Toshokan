@@ -16,7 +16,7 @@ var listCmd = &cobra.Command{
 		games := steam.InstalledGames()
 
 		for _, game := range games {
-			fmt.Println(game.ToString())
+			fmt.Printf("%s (%s)\n", game.Name, game.AppID)
 		}
 	},
 }
@@ -29,7 +29,7 @@ var searchCmd = &cobra.Command{
 		games := steam.SearchInstalledGames(strings.Join(args, " "))
 
 		for _, game := range games {
-			fmt.Println(game.ToString())
+			fmt.Printf("%s (%s)\n", game.Name, game.AppID)
 		}
 	},
 }
@@ -46,7 +46,7 @@ var infoCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Println(game.ToString())
+		fmt.Printf("%s (%s)\n", game.Name, game.AppID)
 	},
 }
 
