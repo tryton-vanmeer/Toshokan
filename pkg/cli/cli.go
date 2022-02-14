@@ -34,6 +34,22 @@ var searchCmd = &cobra.Command{
 	},
 }
 
+var infoCmd = &cobra.Command{
+	Use:   "info [flags] APPID",
+	Args:  cobra.ExactArgs(1),
+	Short: "Get info about an installed Steam game.",
+	Run: func(cmd *cobra.Command, args []string) {
+		game, err := steam.GetGame(args[0])
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		fmt.Println(game.ToString())
+	},
+}
+
 func Run() {
 	var rootCmd = &cobra.Command{
 		Long: "Toshokan is a CLI tool for interacting with your Steam library on Linux",
@@ -41,6 +57,7 @@ func Run() {
 
 	rootCmd.AddCommand(listCmd)
 	rootCmd.AddCommand(searchCmd)
+	rootCmd.AddCommand(infoCmd)
 
 	rootCmd.Execute()
 }
