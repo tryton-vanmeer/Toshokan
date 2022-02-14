@@ -22,20 +22,20 @@ type App struct {
 }
 
 // get the URL for the apps page on Steam
-func (app App) getStorePage() string {
+func (app App) GetStorePage() string {
 	return fmt.Sprintf("https://store.steampowered.com/app/%s", app.AppID)
 }
 
 // get path game would use for it's proton prefix
-func (app App) protonPrefix() string {
+func (app App) ProtonPrefix() string {
 	return fmt.Sprintf("%s/compatdata/%s", app.LibraryFolder, app.AppID)
 }
 
 // check if game uses proton
-func (app App) isProton() bool {
+func (app App) IsProton() bool {
 	// if the proton prefix path exists, assume it is using proton
 	// game can still be using proton, but hasn't performed first launch (so path won't exist)
-	_, err := os.Stat(app.protonPrefix())
+	_, err := os.Stat(app.ProtonPrefix())
 
 	return err == nil
 }
