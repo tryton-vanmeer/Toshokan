@@ -9,7 +9,7 @@ import (
 )
 
 var listCmd = &cobra.Command{
-	Use:   "list [flags]",
+	Use:   "list",
 	Args:  cobra.NoArgs,
 	Short: "List installed Steam games.",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -22,7 +22,7 @@ var listCmd = &cobra.Command{
 }
 
 var searchCmd = &cobra.Command{
-	Use:   "search [flags] ARGS...",
+	Use:   "search ARGS...",
 	Args:  cobra.MinimumNArgs(1),
 	Short: "Search installed Steam games.",
 	Run: func(cmd *cobra.Command, args []string) {
