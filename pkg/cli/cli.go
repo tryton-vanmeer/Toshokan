@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 	"toshokan/pkg/steam"
@@ -56,7 +57,24 @@ var infoCmd = &cobra.Command{
 		}
 
 		if jsonFlag {
+			protonPrefix := ""
 
+			if game.IsProton() {
+				protonPrefix = game.ProtonPrefix()
+			}
+
+			info := GameInfo{
+				Name:             game.Name,
+				AppID:            game.AppID,
+				InstallDirectory: game.InstallDirectory,
+				ProtonPrefix:     protonPrefix,
+			}
+
+			infoJson, _ := json.Marshal(info)
+
+			fmt.Println(string(infoJson))
+
+			return
 		}
 
 		builder := strings.Builder{}
