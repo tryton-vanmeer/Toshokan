@@ -8,6 +8,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type GameInfo struct {
+	Name             string `json:"name"`
+	AppID            string `json:"appid"`
+	InstallDirectory string `json:"install_directory"`
+	ProtonPrefix     string `json:"proton_prefix"`
+}
+
+var jsonFlag bool
+
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Args:  cobra.NoArgs,
@@ -46,6 +55,10 @@ var infoCmd = &cobra.Command{
 			return
 		}
 
+		if jsonFlag {
+
+		}
+
 		builder := strings.Builder{}
 
 		builder.WriteString(fmt.Sprintf("🎮 %s\n", game.Name))
@@ -64,8 +77,6 @@ var infoCmd = &cobra.Command{
 }
 
 func Run() {
-	var jsonFlag bool
-
 	var rootCmd = &cobra.Command{
 		Use:  "toshokan [command]",
 		Long: "Toshokan is a CLI tool for interacting with your Steam library on Linux",
