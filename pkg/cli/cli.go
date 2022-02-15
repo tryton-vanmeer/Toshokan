@@ -22,7 +22,7 @@ var listCmd = &cobra.Command{
 }
 
 var searchCmd = &cobra.Command{
-	Use:   "search ARGS...",
+	Use:   "search [flags] [string to search]",
 	Args:  cobra.MinimumNArgs(1),
 	Short: "Search installed Steam games.",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -35,7 +35,7 @@ var searchCmd = &cobra.Command{
 }
 
 var infoCmd = &cobra.Command{
-	Use:   "info [flags] APPID",
+	Use:   "info [flags] [appid]",
 	Args:  cobra.ExactArgs(1),
 	Short: "Get info about an installed Steam game.",
 	Run: func(cmd *cobra.Command, args []string) {
