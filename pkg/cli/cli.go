@@ -64,10 +64,14 @@ var infoCmd = &cobra.Command{
 }
 
 func Run() {
+	var jsonFlag bool
+
 	var rootCmd = &cobra.Command{
 		Use:  "toshokan [command]",
 		Long: "Toshokan is a CLI tool for interacting with your Steam library on Linux",
 	}
+
+	infoCmd.Flags().BoolVar(&jsonFlag, "json", false, "print in JSON format")
 
 	rootCmd.AddCommand(listCmd)
 	rootCmd.AddCommand(searchCmd)
