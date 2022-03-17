@@ -86,10 +86,8 @@ func parseAppManifest(libraryFolder string, filename string) App {
 	}
 }
 
-// return a list of the users installed apps
-func InstalledGames() (games map[string]App) {
-	games = make(map[string]App)
-
+// return a list of the installed apps
+func GetApps() (apps []App) {
 	folders := libraryFolders()
 
 	// search library directories for app manifest files
@@ -102,8 +100,8 @@ func InstalledGames() (games map[string]App) {
 
 		for _, file := range files {
 			if strings.Contains(file.Name(), "appmanifest") {
-				game := parseAppManifest(folder, file.Name())
-				games[game.AppID] = game
+				app := parseAppManifest(folder, file.Name())
+				apps = append(apps, app)
 			}
 		}
 	}

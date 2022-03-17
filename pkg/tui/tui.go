@@ -50,7 +50,7 @@ func (m model) View() string {
 
 func Run() {
 	items := []list.Item{}
-	games := steam.InstalledGames()
+	games := steam.GetApps()
 
 	for _, game := range games {
 		item := item{
