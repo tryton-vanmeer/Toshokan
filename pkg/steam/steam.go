@@ -7,7 +7,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"toshokan/pkg/util"
 
 	"github.com/Jleagle/steam-go/steamvdf"
 )
@@ -106,18 +105,6 @@ func InstalledGames() (games map[string]App) {
 				game := parseAppManifest(folder, file.Name())
 				games[game.AppID] = game
 			}
-		}
-	}
-
-	return
-}
-
-func SearchInstalledGames(search string) (games []App) {
-	installed_games := InstalledGames()
-
-	for _, game := range installed_games {
-		if util.StringContains(game.Name, search) {
-			games = append(games, game)
 		}
 	}
 

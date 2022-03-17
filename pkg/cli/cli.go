@@ -31,19 +31,6 @@ var listCmd = &cobra.Command{
 	},
 }
 
-var searchCmd = &cobra.Command{
-	Use:   "search [flags] [string to search]",
-	Args:  cobra.MinimumNArgs(1),
-	Short: "Search installed Steam games.",
-	Run: func(cmd *cobra.Command, args []string) {
-		games := steam.SearchInstalledGames(strings.Join(args, " "))
-
-		for _, game := range games {
-			fmt.Printf("%s (%s)\n", game.Name, game.AppID)
-		}
-	},
-}
-
 var infoCmd = &cobra.Command{
 	Use:   "info [flags] [appid]",
 	Args:  cobra.ExactArgs(1),
@@ -103,7 +90,6 @@ func Run() {
 	infoCmd.Flags().BoolVar(&jsonFlag, "json", false, "print in JSON format")
 
 	rootCmd.AddCommand(listCmd)
-	rootCmd.AddCommand(searchCmd)
 	rootCmd.AddCommand(infoCmd)
 
 	rootCmd.Execute()
