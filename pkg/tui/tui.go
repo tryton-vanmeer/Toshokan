@@ -43,12 +43,7 @@ func (m model) View() string {
 }
 
 func Run() {
-	items := []list.Item{}
-	games := steam.GetApps()
-
-	for _, game := range games {
-		items = append(items, Item{game})
-	}
+	items := GetItemListFromGames(steam.GetApps())
 
 	l := list.New(items, list.NewDefaultDelegate(), 0, 0)
 	l.SetShowStatusBar(false)
