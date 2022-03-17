@@ -1,7 +1,8 @@
 package main
 
-import "toshokan/pkg/cli"
+import "toshokan/pkg/tui"
 
 func main() {
-	cli.Run()
+	// cli.Run()
+	tui.Run()
 }
