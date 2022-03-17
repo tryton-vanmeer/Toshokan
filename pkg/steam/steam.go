@@ -20,6 +20,18 @@ type App struct {
 	InstallDirectory string
 }
 
+func (app App) FilterValue() string {
+	return app.Name
+}
+
+func (app App) Title() string {
+	return app.Name
+}
+
+func (app App) Description() string {
+	return app.AppID
+}
+
 // get the URL for the apps page on Steam
 func (app App) GetStorePage() string {
 	return fmt.Sprintf("https://store.steampowered.com/app/%s", app.AppID)

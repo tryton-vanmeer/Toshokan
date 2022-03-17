@@ -12,12 +12,6 @@ import (
 
 var docStyle = lipgloss.NewStyle().Margin(1, 2)
 
-type item steam.App
-
-func (i item) Title() string       { return i.Name }
-func (i item) FilterValue() string { return i.Name }
-func (i item) Description() string { return i.AppID }
-
 type model struct {
 	list list.Model
 }
@@ -53,14 +47,7 @@ func Run() {
 	games := steam.GetApps()
 
 	for _, game := range games {
-		item := item{
-			Name:             game.Name,
-			AppID:            game.AppID,
-			LibraryFolder:    game.LibraryFolder,
-			InstallDirectory: game.InstallDirectory,
-		}
-
-		items = append(items, item)
+		items = append(items, game)
 	}
 
 	m := model{list.New(items, list.NewDefaultDelegate(), 0, 0)}
