@@ -8,16 +8,14 @@ import (
 )
 
 type item struct {
-	app             steam.App
-	showDescription bool
+	app steam.App
 }
 
 type itemList []list.Item
 
 func newItem(game steam.App) item {
 	return item{
-		app:             game,
-		showDescription: false,
+		app: game,
 	}
 }
 
