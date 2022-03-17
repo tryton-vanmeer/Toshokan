@@ -126,12 +126,11 @@ func SearchInstalledGames(search string) (games []App) {
 
 func GetGame(appid string) (App, error) {
 	installed_games := InstalledGames()
+	game, exists := installed_games[appid]
 
-	for _, game := range installed_games {
-		if game.AppID == appid {
-			return game, nil
-		}
+	if !exists {
+		return App{}, fmt.Errorf("no game found with appid: %s", appid)
 	}
 
-	return App{}, fmt.Errorf("no game found with appid: %s", appid)
+	return game, nil
 }
