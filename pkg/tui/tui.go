@@ -47,7 +47,7 @@ func Run() {
 	games := steam.GetApps()
 
 	for _, game := range games {
-		items = append(items, game)
+		items = append(items, Item{game})
 	}
 
 	l := list.New(items, list.NewDefaultDelegate(), 0, 0)
