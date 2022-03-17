@@ -51,8 +51,8 @@ func Run() {
 	}
 
 	l := list.New(items, list.NewDefaultDelegate(), 0, 0)
-	l.Title = "Toshokan"
 	l.SetShowStatusBar(false)
+	l.SetShowTitle(false)
 
 	m := model{l}
 
