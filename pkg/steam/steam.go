@@ -110,14 +110,3 @@ func InstalledGames() (games map[string]App) {
 
 	return
 }
-
-func GetGame(appid string) (App, error) {
-	installed_games := InstalledGames()
-	game, exists := installed_games[appid]
-
-	if !exists {
-		return App{}, fmt.Errorf("no game found with appid: %s", appid)
-	}
-
-	return game, nil
-}
