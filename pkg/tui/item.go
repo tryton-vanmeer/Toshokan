@@ -6,25 +6,27 @@ import (
 	"github.com/charmbracelet/bubbles/list"
 )
 
-type Item struct {
+type item struct {
 	app steam.App
 }
 
-func (i Item) FilterValue() string {
+type itemList []item
+
+func (i item) FilterValue() string {
 	return i.app.Name
 }
 
-func (i Item) Title() string {
+func (i item) Title() string {
 	return i.app.Name
 }
 
-func (i Item) Description() string {
+func (i item) Description() string {
 	return i.app.AppID
 }
 
-func GetItemListFromGames(games []steam.App) (items []list.Item) {
+func getItemListFromGames(games []steam.App) (items []list.Item) {
 	for _, game := range games {
-		items = append(items, Item{game})
+		items = append(items, item{game})
 	}
 
 	return
