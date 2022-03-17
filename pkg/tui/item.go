@@ -8,10 +8,18 @@ import (
 )
 
 type item struct {
-	app steam.App
+	app             steam.App
+	showDescription bool
 }
 
 type itemList []list.Item
+
+func newItem(game steam.App) item {
+	return item{
+		app:             game,
+		showDescription: false,
+	}
+}
 
 func (i item) FilterValue() string {
 	return i.app.Name
@@ -27,7 +35,7 @@ func (i item) Description() string {
 
 func getItemListFromGames(games []steam.App) (items itemList) {
 	for _, game := range games {
-		items = append(items, item{game})
+		items = append(items, newItem(game))
 	}
 
 	sort.Sort(itemList(items))
