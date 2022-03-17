@@ -50,8 +50,11 @@ func Run() {
 		items = append(items, game)
 	}
 
-	m := model{list.New(items, list.NewDefaultDelegate(), 0, 0)}
-	m.list.Title = "Toshokan"
+	l := list.New(items, list.NewDefaultDelegate(), 0, 0)
+	l.Title = "Toshokan"
+	l.SetShowStatusBar(false)
+
+	m := model{l}
 
 	p := tea.NewProgram(m, tea.WithAltScreen())
 
