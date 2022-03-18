@@ -31,6 +31,21 @@ func (i item) Description() string {
 	return i.app.AppID
 }
 
+func (i item) Info() string {
+	s := i.app.Name
+	s += "\n"
+	s += i.app.GetStorePage()
+	s += "\n"
+	s += i.app.InstallDirectory
+
+	if i.app.IsProton() {
+		s += "\n"
+		s += i.app.ProtonPrefix()
+	}
+
+	return s
+}
+
 func getItemListFromGames(games []steam.App) (items itemList) {
 	for _, game := range games {
 		items = append(items, newItem(game))
