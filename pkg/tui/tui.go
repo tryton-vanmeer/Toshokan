@@ -7,10 +7,7 @@ import (
 
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
 )
-
-var docStyle = lipgloss.NewStyle().Margin(1, 2)
 
 type model struct {
 	list list.Model
@@ -23,21 +20,12 @@ func (m model) Init() tea.Cmd {
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
-		h, v := docStyle.GetFrameSize()
-		m.list.SetSize(msg.Width-h, msg.Height-v)
+		m.list.SetSize(msg.Width, msg.Height)
 
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c":
 			return m, tea.Quit
-
-		case "enter":
-			i, ok := m.list.SelectedItem().(item)
-
-			if ok {
-				fmt.Println(i)
-			}
-			return m, nil
 		}
 	}
 
@@ -47,7 +35,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	return docStyle.Render(m.list.View())
+	return m.list.View()
 }
 
 func Run() {
