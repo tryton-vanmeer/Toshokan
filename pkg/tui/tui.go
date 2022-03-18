@@ -30,6 +30,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "ctrl+c":
 			return m, tea.Quit
+
+		case "enter":
+			i, ok := m.list.SelectedItem().(item)
+
+			if ok {
+				fmt.Println(i)
+			}
+			return m, nil
 		}
 	}
 
@@ -44,8 +52,10 @@ func (m model) View() string {
 
 func Run() {
 	items := getItemListFromGames(steam.GetApps())
+	delegate := list.NewDefaultDelegate()
+	// delegate.ShowDescription = false
 
-	l := list.New(items, list.NewDefaultDelegate(), 0, 0)
+	l := list.New(items, delegate, 0, 0)
 	l.SetShowStatusBar(false)
 	l.SetShowTitle(false)
 
