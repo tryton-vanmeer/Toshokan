@@ -10,7 +10,8 @@ import (
 )
 
 type model struct {
-	list list.Model
+	list     list.Model
+	showInfo bool
 }
 
 func (m model) Init() tea.Cmd {
@@ -24,9 +25,17 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case tea.KeyMsg:
 		switch msg.String() {
-		case "ctrl+c":
+		case "ctrl+c", "q":
 			return m, tea.Quit
+
+		case "enter":
+			m.showInfo = !m.showInfo
+			return m, nil
 		}
+	}
+
+	if m.showInfo {
+		return m, nil
 	}
 
 	var cmd tea.Cmd
@@ -35,19 +44,22 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
+	if m.showInfo {
+		return m.list.SelectedItem().(item).Info()
+	}
+
 	return m.list.View()
 }
 
 func Run() {
 	items := getItemListFromGames(steam.GetApps())
 	delegate := list.NewDefaultDelegate()
-	// delegate.ShowDescription = false
 
 	l := list.New(items, delegate, 0, 0)
 	l.SetShowStatusBar(false)
 	l.SetShowTitle(false)
 
-	m := model{l}
+	m := model{l, false}
 
 	p := tea.NewProgram(m, tea.WithAltScreen())
 
