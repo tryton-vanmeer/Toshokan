@@ -7,6 +7,9 @@
 @vendor:
 	go mod vendor -v
 
+@tidy:
+	go mod tidy
+
 @test:
 	go test ./... -v --cover
 
