@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -21,6 +22,22 @@ type App struct {
 }
 
 type AppList []App
+
+func (apps AppList) Len() int {
+	return len(apps)
+}
+
+func (apps AppList) Less(i, j int) bool {
+	return apps[i].Name < apps[j].Name
+}
+
+func (apps AppList) Swap(i, j int) {
+	apps[i], apps[j] = apps[j], apps[i]
+}
+
+func (apps AppList) Sort() {
+	sort.Sort(apps)
+}
 
 // get the URL for the apps page on Steam
 func (app App) GetStorePage() string {
