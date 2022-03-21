@@ -16,7 +16,6 @@ func main() {
 		Label:    "{{ . }}",
 		Active:   "{{ .Name | underline }}",
 		Inactive: "{{ .Name }}",
-		Selected: "{{ .Name }}",
 	}
 
 	searcher := func(input string, index int) bool {
@@ -28,10 +27,11 @@ func main() {
 	}
 
 	prompt := promptui.Select{
-		Label:     "Games",
-		Items:     games,
-		Templates: templates,
-		Searcher:  searcher,
+		Label:        "Games",
+		HideSelected: true,
+		Items:        games,
+		Templates:    templates,
+		Searcher:     searcher,
 	}
 
 	i, _, err := prompt.Run()
