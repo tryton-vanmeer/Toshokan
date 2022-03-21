@@ -11,9 +11,17 @@ func main() {
 	games := steam.GetApps()
 	games.Sort()
 
+	templates := &promptui.SelectTemplates{
+		Label:    "{{ . }}",
+		Active:   "{{ .Name | underline }}",
+		Inactive: "{{ .Name }}",
+		Selected: "{{ .Name }}",
+	}
+
 	prompt := promptui.Select{
-		Label: "Steam Games",
-		Items: games,
+		Label:     "Games",
+		Items:     games,
+		Templates: templates,
 	}
 
 	i, _, err := prompt.Run()
