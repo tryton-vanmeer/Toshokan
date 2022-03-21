@@ -20,6 +20,8 @@ type App struct {
 	InstallDirectory string
 }
 
+type AppList []App
+
 // get the URL for the apps page on Steam
 func (app App) GetStorePage() string {
 	return fmt.Sprintf("https://store.steampowered.com/app/%s", app.AppID)
@@ -87,7 +89,7 @@ func parseAppManifest(libraryFolder string, filename string) App {
 }
 
 // return a list of the installed apps
-func GetApps() (apps []App) {
+func GetApps() (apps AppList) {
 	folders := libraryFolders()
 
 	// search library directories for app manifest files
