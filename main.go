@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"toshokan/pkg/steam"
 
 	"github.com/manifoldco/promptui"
@@ -18,10 +19,19 @@ func main() {
 		Selected: "{{ .Name }}",
 	}
 
+	searcher := func(input string, index int) bool {
+		game := games[index]
+		name := strings.ToLower(game.Name)
+		input = strings.ToLower(input)
+
+		return strings.Contains(name, input)
+	}
+
 	prompt := promptui.Select{
 		Label:     "Games",
 		Items:     games,
 		Templates: templates,
+		Searcher:  searcher,
 	}
 
 	i, _, err := prompt.Run()
