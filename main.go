@@ -12,10 +12,15 @@ func main() {
 	games := steam.GetApps()
 	games.Sort()
 
+	details := `
+{{ "App ID:" | faint }} {{ .AppID }}
+{{ "Install Directory:" | faint }} {{ .InstallDirectory }}`
+
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}",
 		Active:   "{{ .Name | underline }}",
 		Inactive: "{{ .Name }}",
+		Details:  details,
 	}
 
 	searcher := func(input string, index int) bool {
@@ -34,11 +39,7 @@ func main() {
 		Searcher:     searcher,
 	}
 
-	i, _, err := prompt.Run()
+	i, _, _ := prompt.Run()
 
-	if err != nil {
-		return
-	}
-
-	fmt.Println(games[i])
+	fmt.Println(games[i].Name)
 }
