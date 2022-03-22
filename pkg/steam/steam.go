@@ -27,6 +27,7 @@ type App struct {
 	AppID            string
 	LibraryFolder    string
 	InstallDirectory string
+	ProtonPrefix     string
 }
 
 type AppList []App
@@ -53,7 +54,7 @@ func (app App) GetStorePage() string {
 }
 
 // get path game would use for it's proton prefix
-func (app App) ProtonPrefix() string {
+func (app App) getProtonPrefixPath() string {
 	return fmt.Sprintf("%s/compatdata/%s", app.LibraryFolder, app.AppID)
 }
 
@@ -61,7 +62,7 @@ func (app App) ProtonPrefix() string {
 func (app App) IsProton() bool {
 	// if the proton prefix path exists, assume it is using proton
 	// game can still be using proton, but hasn't performed first launch (so path won't exist)
-	_, err := os.Stat(app.ProtonPrefix())
+	_, err := os.Stat(app.getProtonPrefixPath())
 
 	return err == nil
 }
@@ -96,7 +97,7 @@ func libraryFolders() (directories []string) {
 }
 
 // parse an appmanifest_$id.acf and return a Game object
-func parseAppManifest(libraryFolder string, filename string) App {
+func parseAppManifest(libraryFolder string, filename string) (app App) {
 	app_manifest_path := fmt.Sprintf("%s/%s", libraryFolder, filename)
 	kv, err := steamvdf.ReadFile(app_manifest_path)
 	if err != nil {
@@ -113,12 +114,18 @@ func parseAppManifest(libraryFolder string, filename string) App {
 	installDirectory := strings.Join([]string{libraryFolder, "common", app_manifest["installdir"]}, "/")
 	installDirectory = strings.Replace(installDirectory, home, "~", 1)
 
-	return App{
+	app = App{
 		Name:             app_manifest["name"],
 		AppID:            app_manifest["appid"],
 		LibraryFolder:    libraryFolder,
 		InstallDirectory: installDirectory,
 	}
+
+	if app.IsProton() {
+		app.ProtonPrefix = app.getProtonPrefixPath()
+	}
+
+	return
 }
 
 // filter out tools and runtimes

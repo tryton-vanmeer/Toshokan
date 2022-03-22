@@ -14,7 +14,8 @@ func main() {
 
 	details := `
 {{ "App ID:" | faint }} {{ .AppID }}
-{{ "Install Directory:" | faint }} {{ .InstallDirectory }}`
+{{ "Install Directory:" | faint }} {{ .InstallDirectory }}
+{{ if .ProtonPrefix }}{{ "Proton Prefix:" | faint }} {{ .ProtonPrefix }}{{ end }}`
 
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}",
