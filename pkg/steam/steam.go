@@ -103,6 +103,7 @@ func parseAppManifest(libraryFolder string, filename string) App {
 	}
 
 	installDirectory := strings.Join([]string{libraryFolder, "common", app_manifest["installdir"]}, "/")
+	installDirectory = strings.Replace(installDirectory, home, "~", 1)
 
 	return App{
 		Name:             app_manifest["name"],
