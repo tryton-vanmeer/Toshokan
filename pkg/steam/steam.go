@@ -18,6 +18,8 @@ const (
 
 var FILTER_LIST = []string{
 	"Proton",
+	"Steam Linux Runtime",
+	"Steamworks Common Redistributables",
 }
 
 type App struct {
