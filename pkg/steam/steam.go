@@ -12,7 +12,13 @@ import (
 	"github.com/Jleagle/steam-go/steamvdf"
 )
 
-const STEAM_APPS_ROOT = ".steam/steam/steamapps"
+const (
+	STEAM_APPS_ROOT = ".steam/steam/steamapps"
+)
+
+var FILTER_LIST = []string{
+	"Proton",
+}
 
 type App struct {
 	Name             string
@@ -113,6 +119,25 @@ func parseAppManifest(libraryFolder string, filename string) App {
 	}
 }
 
+// filter out tools and runtimes
+func (apps AppList) filter() (new AppList) {
+	for _, app := range apps {
+		flagged := false
+		for _, filter := range FILTER_LIST {
+			if strings.Contains(app.Name, filter) {
+				flagged = true
+				break
+			}
+		}
+
+		if !flagged {
+			new = append(new, app)
+		}
+	}
+
+	return
+}
+
 // return a list of the installed apps
 func GetApps() (apps AppList) {
 	folders := libraryFolders()
@@ -133,5 +158,5 @@ func GetApps() (apps AppList) {
 		}
 	}
 
-	return
+	return apps.filter()
 }
