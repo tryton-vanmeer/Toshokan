@@ -12,7 +12,7 @@ import (
 	"github.com/Jleagle/steam-go/steamvdf"
 )
 
-var STEAM_APPS_ROOT = ".steam/steam/steamapps"
+const STEAM_APPS_ROOT = ".steam/steam/steamapps"
 
 type App struct {
 	Name             string
