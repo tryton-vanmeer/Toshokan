@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 	"toshokan/pkg/steam"
 
@@ -40,7 +39,5 @@ func main() {
 		Searcher:     searcher,
 	}
 
-	i, _, _ := prompt.Run()
-
-	fmt.Println(games[i].Name)
+	prompt.Run()
 }
