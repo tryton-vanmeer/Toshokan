@@ -97,11 +97,18 @@ func parseAppManifest(libraryFolder string, filename string) App {
 
 	app_manifest := kv.GetChildrenAsMap()
 
+	home, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	installDirectory := strings.Join([]string{libraryFolder, "common", app_manifest["installdir"]}, "/")
+
 	return App{
 		Name:             app_manifest["name"],
 		AppID:            app_manifest["appid"],
 		LibraryFolder:    libraryFolder,
-		InstallDirectory: strings.Join([]string{libraryFolder, "common", app_manifest["installdir"]}, "/"),
+		InstallDirectory: installDirectory,
 	}
 }
 
