@@ -122,7 +122,8 @@ func parseAppManifest(libraryFolder string, filename string) (app App) {
 	}
 
 	if app.IsProton() {
-		app.ProtonPrefix = app.getProtonPrefixPath()
+		protonPrefix := app.getProtonPrefixPath()
+		app.ProtonPrefix = strings.Replace(protonPrefix, home, "~", 1)
 	}
 
 	return
