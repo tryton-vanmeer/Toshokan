@@ -1,6 +1,10 @@
 {{ "App ID:" | faint }} {{ .AppID }}
 {{ "Store Page:" | faint }} {{ .GetStorePage }}
-{{ "Install Directory:" | faint }} {{ .InstallDirectory }}
+{{ if gt (len .InstallDirectory) 60 -}}
+  {{ "Install Directory:" | faint }} {{ printf "\n  " }} {{ .InstallDirectory }}
+{{ else -}}
+  {{ "Install Directory:" | faint }} {{ .InstallDirectory }}
+{{ end -}}
 {{ if .ProtonPrefix -}}
   {{ "Proton Prefix:" | faint }} {{ .ProtonPrefix }}
 {{ end }}
