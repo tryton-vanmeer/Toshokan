@@ -15,12 +15,6 @@ func Run() {
 	games := steam.GetApps()
 	games.Sort()
 
-	// 	details := `
-	// {{ "App ID:" | faint }} {{ .AppID }}
-	// {{ "Store Page:" | faint }} {{ .GetStorePage }}
-	// {{ "Install Directory:" | faint }} {{printf "\n  "}} {{ .InstallDirectory }}
-	// {{ if .ProtonPrefix }}{{ "Proton Prefix:" | faint }} {{ .ProtonPrefix }}{{ end }}`
-
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}",
 		Active:   "{{ .Name | underline }}",
