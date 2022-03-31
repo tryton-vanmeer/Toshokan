@@ -1,21 +1,25 @@
 package tui
 
 import (
+	_ "embed"
 	"strings"
 	"toshokan/pkg/steam"
 
 	"github.com/manifoldco/promptui"
 )
 
+//go:embed "details.tmpl"
+var details string
+
 func Run() {
 	games := steam.GetApps()
 	games.Sort()
 
-	details := `
-{{ "App ID:" | faint }} {{ .AppID }}
-{{ "Store Page:" | faint }} {{ .GetStorePage }}
-{{ "Install Directory:" | faint }} {{ .InstallDirectory }}
-{{ if .ProtonPrefix }}{{ "Proton Prefix:" | faint }} {{ .ProtonPrefix }}{{ end }}`
+	// 	details := `
+	// {{ "App ID:" | faint }} {{ .AppID }}
+	// {{ "Store Page:" | faint }} {{ .GetStorePage }}
+	// {{ "Install Directory:" | faint }} {{printf "\n  "}} {{ .InstallDirectory }}
+	// {{ if .ProtonPrefix }}{{ "Proton Prefix:" | faint }} {{ .ProtonPrefix }}{{ end }}`
 
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}",
