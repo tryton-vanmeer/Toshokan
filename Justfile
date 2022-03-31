@@ -1,5 +1,5 @@
 @build:
-	go build -o bin/toshokan main.go
+	go build -ldflags "-s -w" -o bin/toshokan main.go
 
 @run:
 	go run main.go
