@@ -1,7 +1,16 @@
 use crate::steam;
 use crate::steam::Game;
 
-use cursive::{views::*, Cursive};
+use cursive::{views::*, Cursive, theme::*, traits::{Scrollable, Resizable}};
+
+fn set_theme(siv: &mut Cursive) {
+    let mut theme = siv.current_theme().clone();
+
+    theme.shadow = false;
+    theme.borders = BorderStyle::Simple;
+
+    siv.set_theme(theme);
+}
 
 fn build_game_list() -> SelectView<Game> {
     let mut list = SelectView::new();
@@ -13,18 +22,28 @@ fn build_game_list() -> SelectView<Game> {
     return list;
 }
 
+fn build_game_info() -> ListView {
+    let mut info = ListView::new();
+
+    info.add_child("App ID", TextView::new("123456"));
+
+    return info;
+}
+
 pub fn run() {
     let mut siv = cursive::default();
+    set_theme(&mut siv);
 
     siv.add_global_callback('q', Cursive::quit);
 
-    let mut info = ListView::new();
-    info.add_child("App ID", TextView::new("123456"));
+    let list = build_game_list();
+
+    let info = build_game_info();
 
     let layout = LinearLayout::horizontal()
-        .child(Panel::new(build_game_list()))
+        .child(Panel::new(list.scrollable()))
         .child(Panel::new(info));
 
-    siv.add_layer(layout);
+    siv.add_fullscreen_layer(layout);
     siv.run();
 }
