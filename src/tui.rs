@@ -1,7 +1,9 @@
 use crate::steam;
 use crate::steam::Game;
 
-use cursive::{views::*, Cursive, theme::*, theme::{PaletteColor::*, Color::*, BaseColor::*}, traits::{Scrollable}};
+use cursive::traits::Nameable;
+use cursive::utils::markup::StyledString;
+use cursive::{views::*, Cursive, theme::*, theme::{PaletteColor::*, Color::TerminalDefault}, traits::{Scrollable}};
 
 fn set_theme(siv: &mut Cursive) {
     let mut theme = siv.current_theme().clone();
@@ -22,6 +24,14 @@ fn set_theme(siv: &mut Cursive) {
 fn build_game_list() -> SelectView<Game> {
     let mut list = SelectView::new().autojump();
 
+    list.set_on_select(|s, item| {
+        let content = build_game_info(item);
+        s.call_on_name("info", |v: &mut TextView| {
+            v.set_content(content);
+        })
+        .unwrap();
+    });
+
     for game in steam::get_games() {
         list.add_item(game.name.to_string(), game);
     }
@@ -29,12 +39,11 @@ fn build_game_list() -> SelectView<Game> {
     return list;
 }
 
-fn build_game_info(game: &Game) -> ListView {
-    let mut info = ListView::new();
+fn build_game_info(game: &Game) -> StyledString {
+    let mut styled = StyledString::styled("App ID ", Effect::Bold);
+    styled.append(StyledString::plain(game.appid.to_string()));
 
-    info.add_child("App ID", TextView::new(game.appid.to_string()));
-
-    return info;
+    return styled;
 }
 
 pub fn run() {
@@ -43,11 +52,8 @@ pub fn run() {
 
     siv.add_global_callback('q', Cursive::quit);
 
+    let info = TextView::new("").with_name("info");
     let list = build_game_list();
-
-    let info = build_game_info(
-        list.selection().unwrap().as_ref()
-    );
 
     let layout = LinearLayout::horizontal()
         .child(Panel::new(list.scrollable()))
