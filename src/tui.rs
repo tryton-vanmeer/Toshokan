@@ -1,7 +1,7 @@
 use crate::steam;
 use crate::steam::Game;
 
-use cursive::traits::Nameable;
+use cursive::traits::{Nameable, Resizable};
 use cursive::utils::markup::StyledString;
 use cursive::{views::*, Cursive, theme::*, theme::{PaletteColor::*, Color::TerminalDefault}, traits::{Scrollable}};
 
@@ -56,8 +56,8 @@ pub fn run() {
     let list = build_game_list();
 
     let layout = LinearLayout::horizontal()
-        .child(Panel::new(list.scrollable()))
-        .child(Panel::new(info));
+        .child(Panel::new(list.scrollable()).min_width(40))
+        .child(Panel::new(info).fixed_width(50));
 
     siv.add_fullscreen_layer(layout);
     siv.run();
