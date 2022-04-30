@@ -8,8 +8,8 @@ pub struct Game {
 impl Game {
     pub fn from_steamapp(app: &SteamApp) -> Self {
         Self {
-            name: "test".to_string(),
-            appid: 123456
+            name: app.name.as_ref().unwrap().to_string(),
+            appid: app.appid
         }
     }
 }
