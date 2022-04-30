@@ -1,7 +1,7 @@
 use crate::steam;
 use crate::steam::Game;
 
-use cursive::{views::{Dialog, SelectView}, Cursive};
+use cursive::{views::*, Cursive};
 
 fn build_game_list() -> SelectView<Game> {
     let mut list = SelectView::new();
@@ -18,12 +18,13 @@ pub fn run() {
 
     siv.add_global_callback('q', Cursive::quit);
 
-    let list = build_game_list();
+    let mut info = ListView::new();
+    info.add_child("App ID", TextView::new("123456"));
 
-    let dialog = Dialog::new()
-        .title("Games")
-        .content(list);
+    let layout = LinearLayout::horizontal()
+        .child(Panel::new(build_game_list()))
+        .child(Panel::new(info));
 
-    siv.add_layer(dialog);
+    siv.add_layer(layout);
     siv.run();
 }
