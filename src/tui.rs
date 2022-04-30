@@ -20,7 +20,7 @@ fn set_theme(siv: &mut Cursive) {
 }
 
 fn build_game_list() -> SelectView<Game> {
-    let mut list = SelectView::new();
+    let mut list = SelectView::new().autojump();
 
     for game in steam::get_games() {
         list.add_item(game.name.to_string(), game);
@@ -29,10 +29,10 @@ fn build_game_list() -> SelectView<Game> {
     return list;
 }
 
-fn build_game_info() -> ListView {
+fn build_game_info(game: &Game) -> ListView {
     let mut info = ListView::new();
 
-    info.add_child("App ID", TextView::new("123456"));
+    info.add_child("App ID", TextView::new(game.appid.to_string()));
 
     return info;
 }
@@ -45,7 +45,9 @@ pub fn run() {
 
     let list = build_game_list();
 
-    let info = build_game_info();
+    let info = build_game_info(
+        list.selection().unwrap().as_ref()
+    );
 
     let layout = LinearLayout::horizontal()
         .child(Panel::new(list.scrollable()))
