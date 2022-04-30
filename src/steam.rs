@@ -1,11 +1,10 @@
-use std::{path::PathBuf, str::FromStr};
-
+use directories::UserDirs;
 use steamlocate::{SteamDir, SteamApp};
 
 pub struct Game {
     pub name: String,
     pub appid: u32,
-    path: PathBuf
+    path: String
 }
 
 impl Game {
@@ -13,12 +12,19 @@ impl Game {
         Self {
             name: app.name.as_ref().unwrap().to_string(),
             appid: app.appid,
-            path: app.path.clone()
+            path: app.path.clone().into_os_string().into_string().unwrap()
         }
     }
 
-    pub fn get_path(self) -> String {
-        self.path.into_os_string().into_string().unwrap()
+    pub fn path(self) -> String {
+        let dirs = UserDirs::new().unwrap();
+        let home = dirs.home_dir().to_str().unwrap();
+
+        if self.path.starts_with(home) {
+            return self.path.replace(home, "~");
+        }
+
+        self.path
     }
 }
 

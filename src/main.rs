@@ -21,7 +21,7 @@ fn main() {
     );
 
     for game in games {
-        table.add_row(row![game.appid, game.name, game.get_path()]);
+        table.add_row(row![game.appid, game.name, game.path()]);
     }
 
     table.printstd();

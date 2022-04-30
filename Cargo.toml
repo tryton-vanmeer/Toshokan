@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 steamlocate = "1.0"
 prettytable-rs = "0.8"
+directories = "4.0"
