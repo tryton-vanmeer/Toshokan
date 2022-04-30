@@ -52,8 +52,11 @@ pub fn run() {
 
     siv.add_global_callback('q', Cursive::quit);
 
-    let info = TextView::new("").with_name("info");
     let list = build_game_list();
+
+    let info = TextView::new(
+        build_game_info(list.selection().unwrap().as_ref()))
+    .with_name("info");
 
     let layout = LinearLayout::horizontal()
         .child(Panel::new(list.scrollable()).min_width(40))
