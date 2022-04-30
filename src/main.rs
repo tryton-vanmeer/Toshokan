@@ -14,12 +14,14 @@ fn main() {
             Cell::new("App ID")
             .with_style(Attr::Bold),
             Cell::new("Name")
+            .with_style(Attr::Bold),
+            Cell::new("Install Directory")
             .with_style(Attr::Bold)
         ])
     );
 
     for game in games {
-        table.add_row(row![game.appid, game.name]);
+        table.add_row(row![game.appid, game.name, game.get_path()]);
     }
 
     table.printstd();
