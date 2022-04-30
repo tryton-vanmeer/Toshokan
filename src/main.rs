@@ -1,3 +1,9 @@
+mod steam;
+
 fn main() {
-    println!("Hello, world!");
+    let games = steam::get_games();
+
+    for game in games {
+        println!("{}  {}", game.name, game.appid)
+    }
 }
