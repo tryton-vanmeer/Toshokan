@@ -13,13 +13,13 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-go@v2
-
-      - name: Dowload Dependencies
-        run: go mod vendor -v
+      - uses: icepuma/rust-action@master
 
       - name: Build
-        run: go build -o bin/toshokan main.go
+        run: cargo build
+
+      - name: Clippy
+        run: cargo clippy -- -Dwarnings
 
       - name: Test
-        run: go test ./... -v --cover
+        run: cargo test
