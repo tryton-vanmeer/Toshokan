@@ -41,8 +41,13 @@ fn build_game_list() -> SelectView<Game> {
 }
 
 fn build_game_info(game: &Game) -> StyledString {
+    let appid = game.appid;
+
     let mut styled = StyledString::styled("App ID ", Effect::Bold);
-    styled.append(StyledString::plain(game.appid.to_string()));
+    styled.append(StyledString::plain(appid.to_string()));
+
+    styled.append_styled("\nStore ", Effect::Bold);
+    styled.append_plain(format!("https://store.steampowered.com/app/{}", appid));
 
     styled.append_styled("\nInstallation ", Effect::Bold);
     styled.append_plain(game.path());
