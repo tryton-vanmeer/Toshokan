@@ -3,6 +3,7 @@ use crate::steam::Game;
 
 use cursive::traits::{Nameable, Resizable};
 use cursive::utils::markup::StyledString;
+use cursive::view::SizeConstraint;
 use cursive::{views::*, Cursive, theme::*, theme::{PaletteColor::*, Color::TerminalDefault}, traits::{Scrollable}};
 
 fn set_theme(siv: &mut Cursive) {
@@ -63,7 +64,7 @@ pub fn run() {
 
     let layout = LinearLayout::horizontal()
         .child(Panel::new(list.scrollable()).min_width(40))
-        .child(Panel::new(info).fixed_width(50));
+        .child(Panel::new(info).full_width());
 
     siv.add_fullscreen_layer(layout);
     siv.run();
