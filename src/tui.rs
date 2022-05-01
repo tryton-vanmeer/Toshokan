@@ -43,6 +43,9 @@ fn build_game_info(game: &Game) -> StyledString {
     let mut styled = StyledString::styled("App ID ", Effect::Bold);
     styled.append(StyledString::plain(game.appid.to_string()));
 
+    styled.append_styled("\n\nInstallation ", Effect::Bold);
+    styled.append_plain(game.path());
+
     return styled;
 }
 
