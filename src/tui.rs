@@ -3,7 +3,13 @@ use crate::steam::Game;
 
 use cursive::traits::{Nameable, Resizable};
 use cursive::utils::markup::StyledString;
-use cursive::{views::*, Cursive, theme::*, theme::{PaletteColor::*, Color::TerminalDefault}, traits::{Scrollable}};
+use cursive::{
+    theme::*,
+    theme::{Color::TerminalDefault, PaletteColor::*},
+    traits::Scrollable,
+    views::*,
+    Cursive,
+};
 
 fn set_theme(siv: &mut Cursive) {
     let mut theme = siv.current_theme().clone();
@@ -62,9 +68,7 @@ pub fn run() {
 
     let list = build_game_list();
 
-    let info = TextView::new(
-        build_game_info(list.selection().unwrap().as_ref()))
-    .with_name("info");
+    let info = TextView::new(build_game_info(list.selection().unwrap().as_ref())).with_name("info");
 
     let layout = LinearLayout::horizontal()
         .child(Panel::new(list.scrollable()))

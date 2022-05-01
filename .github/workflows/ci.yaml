@@ -21,5 +21,8 @@ jobs:
       - name: Clippy
         run: cargo clippy -- -Dwarnings
 
+      - name: Formatting
+        run: cargo fmt -- --check
+
       - name: Test
         run: cargo test

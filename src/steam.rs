@@ -1,10 +1,10 @@
 use directories::UserDirs;
-use steamlocate::{SteamDir, SteamApp};
+use steamlocate::{SteamApp, SteamDir};
 
 pub struct Game {
     pub name: String,
     pub appid: u32,
-    path: String
+    path: String,
 }
 
 impl Game {
@@ -12,7 +12,7 @@ impl Game {
         Self {
             name: app.name.as_ref().unwrap().to_string(),
             appid: app.appid,
-            path: app.path.clone().into_os_string().into_string().unwrap()
+            path: app.path.clone().into_os_string().into_string().unwrap(),
         }
     }
 
@@ -37,7 +37,7 @@ pub fn get_games() -> Vec<Game> {
     for (_, app) in apps {
         match app {
             Some(app) => games.push(Game::from_steamapp(app)),
-            None => ()
+            None => (),
         }
     }
 
