@@ -16,7 +16,7 @@ impl Game {
         }
     }
 
-    pub fn path(self) -> String {
+    pub fn path(&self) -> String {
         let dirs = UserDirs::new().unwrap();
         let home = dirs.home_dir().to_str().unwrap();
 
@@ -24,7 +24,7 @@ impl Game {
             return self.path.replace(home, "~");
         }
 
-        self.path
+        self.path.clone()
     }
 }
 
