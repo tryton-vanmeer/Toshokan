@@ -63,7 +63,7 @@ pub fn run() {
     .with_name("info");
 
     let layout = LinearLayout::horizontal()
-        .child(Panel::new(list.scrollable()).min_width(40))
+        .child(Panel::new(list.scrollable()))
         .child(Panel::new(info).full_width());
 
     siv.add_fullscreen_layer(layout);
