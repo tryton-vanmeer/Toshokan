@@ -42,7 +42,7 @@ fn build_game_list() -> SelectView<Game> {
         list.add_item(game.name.to_string(), game);
     }
 
-    return list;
+    list
 }
 
 fn build_game_info(game: &Game) -> StyledString {
@@ -57,7 +57,7 @@ fn build_game_info(game: &Game) -> StyledString {
     styled.append_styled("\nInstallation ", Effect::Bold);
     styled.append_plain(game.path());
 
-    return styled;
+    styled
 }
 
 pub fn run() {
