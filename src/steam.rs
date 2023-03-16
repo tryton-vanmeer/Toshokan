@@ -29,17 +29,10 @@ impl Game {
 }
 
 pub fn get_games() -> Vec<Game> {
-    let mut games = Vec::new();
-
     let mut steamdir = SteamDir::locate().unwrap();
     let apps = steamdir.apps();
 
-    for (_, app) in apps {
-        match app {
-            Some(app) => games.push(Game::from_steamapp(app)),
-            None => (),
-        }
-    }
-
-    return games;
+    apps.iter()
+        .map(|(_id, app)| Game::from_steamapp(app.as_ref().unwrap()))
+        .collect()
 }
