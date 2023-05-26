@@ -24,6 +24,12 @@ enum Commands {
 
     /// List installed games in your Steam library
     List,
+
+    /// View info for specified game
+    Info {
+        /// Game to view info about
+        appid: u32,
+    },
 }
 
 fn generate_completions(shell: Shell, cmd: &mut Command) -> Result<()> {
@@ -44,6 +50,10 @@ fn list() -> Result<()> {
     Ok(())
 }
 
+fn info(appid: u32) -> Result<()> {
+    Ok(())
+}
+
 pub fn run() -> Result<()> {
     let args = Cli::parse();
 
@@ -58,6 +68,8 @@ pub fn run() -> Result<()> {
         }
 
         Commands::List => list()?,
+
+        Commands::Info { appid } => info(appid)?,
     }
 
     Ok(())
