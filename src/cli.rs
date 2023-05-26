@@ -1,10 +1,10 @@
 use std::io;
 
-use anyhow::Result;
+use anyhow::{Ok, Result};
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use colored::Colorize;
-use toshokan::{get_game, get_games};
+use toshokan::{get_game, get_games, Game};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -28,7 +28,11 @@ enum Commands {
     /// View info for specified game
     Info {
         /// Game to view info about
-        appid: u32,
+        #[arg(required_unless_present = "all")]
+        appid: Option<u32>,
+        /// Show info for all games
+        #[arg(short, long)]
+        all: bool,
     },
 }
 
@@ -50,9 +54,8 @@ fn list() -> Result<()> {
     Ok(())
 }
 
-fn info(appid: u32) -> Result<()> {
+fn print_info(game: Game) {
     let width = 13;
-    let game = get_game(appid)?;
 
     println!("{}", game.name.purple().bold());
 
@@ -70,6 +73,25 @@ fn info(appid: u32) -> Result<()> {
             "proton prefix".blue().bold(),
             game.proton_prefix()
         );
+    }
+}
+
+fn info(appid: u32) -> Result<()> {
+    print_info(get_game(appid)?);
+
+    Ok(())
+}
+
+fn info_all() -> Result<()> {
+    let games = get_games()?;
+    let mut games_peeker = games.iter().peekable();
+
+    while let Some(game) = games_peeker.next() {
+        print_info(game.to_owned());
+
+        if games_peeker.peek().is_some() {
+            println!();
+        }
     }
 
     Ok(())
@@ -90,7 +112,13 @@ pub fn run() -> Result<()> {
 
         Commands::List => list()?,
 
-        Commands::Info { appid } => info(appid)?,
+        Commands::Info { appid, all } => {
+            if all {
+                info_all()?
+            } else {
+                info(appid.unwrap())?
+            }
+        }
     }
 
     Ok(())
