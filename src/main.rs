@@ -1,6 +1,7 @@
-mod steam;
-mod tui;
+mod cli;
 
-fn main() {
-    tui::run();
+use anyhow::Result;
+
+fn main() -> Result<()> {
+    cli::run()
 }
