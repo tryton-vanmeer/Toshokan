@@ -61,6 +61,17 @@ impl Game {
     pub fn path(&self) -> String {
         self.path.display_home_as_tilde()
     }
+
+    pub fn proton_prefix(&self) -> String {
+        let mut path = self.path.clone();
+
+        path.pop(); // game name
+        path.pop(); // common
+        path.push("compatdata");
+        path.push(PathBuf::from(self.appid.to_string()));
+
+        path.display_home_as_tilde()
+    }
 }
 
 pub fn get_games() -> Result<Vec<Game>> {
