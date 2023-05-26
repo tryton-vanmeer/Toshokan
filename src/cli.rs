@@ -3,6 +3,7 @@ use std::io;
 use anyhow::Result;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
+use colored::Colorize;
 use toshokan::get_games;
 
 #[derive(Parser, Debug)]
@@ -32,8 +33,12 @@ fn generate_completions(shell: Shell, cmd: &mut Command) -> Result<()> {
 }
 
 fn list() -> Result<()> {
+    println!(
+        "{}",
+        format!("{:<8} {}{}", "AppID".bold(), "Name".bold(), " ".repeat(32)).underline()
+    );
     for game in get_games()? {
-        println!("{}", game.name);
+        println!("{:<8} {}", game.appid.to_string().green(), game.name);
     }
 
     Ok(())
