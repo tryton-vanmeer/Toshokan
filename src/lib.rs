@@ -1,4 +1,4 @@
-use std::env;
+use std::{env, path::PathBuf};
 
 use anyhow::{Context, Ok, Result};
 use steamlocate::{SteamApp, SteamDir};
@@ -8,7 +8,7 @@ pub struct Game {
     pub appid: u32,
     pub name: String,
     pub proton: bool,
-    path: String,
+    path: PathBuf,
 }
 
 impl Game {
@@ -22,18 +22,20 @@ impl Game {
             appid: *id,
             name: app.name.as_ref().unwrap().clone(),
             proton,
-            path: app.path.display().to_string(),
+            path: app.path.clone(),
         }
     }
 
     pub fn path(&self) -> String {
+        let path = self.path.display().to_string();
+
         let home = env::var("HOME").unwrap();
 
         if self.path.starts_with(&home) {
-            return self.path.replace(&home, "~");
+            return path.replace(&home, "~");
         }
 
-        self.path.clone()
+        path
     }
 
     fn should_filter(&self) -> bool {
