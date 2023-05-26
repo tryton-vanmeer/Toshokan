@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 steamlocate = "1"
 directories = "4"
+anyhow = "1"
