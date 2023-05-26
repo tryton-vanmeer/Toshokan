@@ -3,6 +3,23 @@ use std::{env, path::PathBuf};
 use anyhow::{Context, Ok, Result};
 use steamlocate::{SteamApp, SteamDir};
 
+trait DisplayHomeAsTilde {
+    fn display_home_as_tilde(&self) -> String;
+}
+
+impl DisplayHomeAsTilde for PathBuf {
+    fn display_home_as_tilde(&self) -> String {
+        let path = self.display().to_string();
+
+        let home = env::var("HOME").unwrap();
+        if path.starts_with(&home) {
+            return path.replace(&home, "~");
+        }
+
+        path
+    }
+}
+
 #[derive(Debug)]
 pub struct Game {
     pub appid: u32,
@@ -26,18 +43,6 @@ impl Game {
         }
     }
 
-    pub fn path(&self) -> String {
-        let path = self.path.display().to_string();
-
-        let home = env::var("HOME").unwrap();
-
-        if self.path.starts_with(&home) {
-            return path.replace(&home, "~");
-        }
-
-        path
-    }
-
     fn should_filter(&self) -> bool {
         ![
             "Proton 6.3",
@@ -51,6 +56,10 @@ impl Game {
             "Steam Linux Runtime - Soldier",
         ]
         .contains(&self.name.as_ref())
+    }
+
+    pub fn path(&self) -> String {
+        self.path.display_home_as_tilde()
     }
 }
 
