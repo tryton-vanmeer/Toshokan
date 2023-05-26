@@ -7,14 +7,21 @@ use steamlocate::{SteamApp, SteamDir};
 pub struct Game {
     pub appid: u32,
     pub name: String,
+    pub proton: bool,
     path: String,
 }
 
 impl Game {
     fn from_steamapp(id: &u32, app: &SteamApp) -> Self {
+        let proton = match app.user_config.get("platform_override_source") {
+            Some(platform) => platform == "windows",
+            _ => false,
+        };
+
         Self {
             appid: *id,
             name: app.name.as_ref().unwrap().clone(),
+            proton,
             path: app.path.display().to_string(),
         }
     }
