@@ -26,7 +26,7 @@ impl Game {
         }
     }
 
-    fn path(&self) -> String {
+    pub fn path(&self) -> String {
         let home = env::var("HOME").unwrap();
 
         if self.path.starts_with(&home) {
