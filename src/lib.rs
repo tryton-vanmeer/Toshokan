@@ -27,6 +27,10 @@ impl Game {
 
         self.path.clone()
     }
+
+    fn should_filter(&self) -> bool {
+        true
+    }
 }
 
 pub fn get_games() -> Result<Vec<Game>> {
@@ -36,6 +40,7 @@ pub fn get_games() -> Result<Vec<Game>> {
         .apps()
         .iter()
         .map(|(id, app)| Game::from_steamapp(id, app.as_ref().unwrap()))
+        .filter(|game| game.should_filter())
         .collect::<Vec<Game>>();
 
     games.sort_by_key(|game| game.name.to_string());
