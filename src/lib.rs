@@ -29,7 +29,18 @@ impl Game {
     }
 
     fn should_filter(&self) -> bool {
-        true
+        ![
+            "Proton 6.3",
+            "Proton 7.0",
+            "Proton 8.0",
+            "Proton EasyAntiCheat Runtime",
+            "Proton Experimental",
+            "Proton Hotfix",
+            "Steamworks Common Redistributables",
+            "Steam Linux Runtime - Sniper",
+            "Steam Linux Runtime - Soldier",
+        ]
+        .contains(&self.name.as_ref())
     }
 }
 
