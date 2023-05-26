@@ -3,6 +3,7 @@ use std::io;
 use anyhow::Result;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
+use toshokan::get_games;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -31,7 +32,9 @@ fn generate_completions(shell: Shell, cmd: &mut Command) -> Result<()> {
 }
 
 fn list() -> Result<()> {
-    println!("{}", toshokan::get_games());
+    for game in get_games()? {
+        println!("{}", game.name);
+    }
 
     Ok(())
 }
@@ -47,7 +50,8 @@ pub fn run() -> Result<()> {
             };
 
             generate_completions(gen, &mut Cli::command())?
-        },
+        }
+
         Commands::List => list()?,
     }
 
