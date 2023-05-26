@@ -44,7 +44,7 @@ fn list() -> Result<()> {
         format!("{:<8} {}{}", "AppID".bold(), "Name".bold(), " ".repeat(32)).underline()
     );
     for game in get_games()? {
-        println!("{:<8} {}", game.appid.to_string().green(), game.name);
+        println!("{:<8} {}", game.appid.to_string().green().bold(), game.name);
     }
 
     Ok(())
