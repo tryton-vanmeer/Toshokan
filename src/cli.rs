@@ -4,7 +4,7 @@ use anyhow::Result;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use colored::Colorize;
-use toshokan::{get_games, get_game};
+use toshokan::{get_game, get_games};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -51,9 +51,26 @@ fn list() -> Result<()> {
 }
 
 fn info(appid: u32) -> Result<()> {
+    let width = 13;
     let game = get_game(appid)?;
 
-    println!("{:#?}", game);
+    println!("{}", game.name.purple().bold());
+
+    println!(
+        "{:<width$} https://store.steampowered.com/app/{}",
+        "store".blue().bold(),
+        game.appid
+    );
+
+    println!("{:<width$} {}", "install dir".blue().bold(), game.path());
+
+    if game.proton {
+        println!(
+            "{:<width$} {}",
+            "proton prefix".blue().bold(),
+            game.proton_prefix()
+        );
+    }
 
     Ok(())
 }
