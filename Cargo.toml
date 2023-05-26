@@ -1,9 +1,11 @@
 [package]
 name = "toshokan"
 version = "0.1.0"
+description = "Tool for interacting with your Steam library."
 edition = "2021"
 
 [dependencies]
 steamlocate = "1"
 directories = "4"
 anyhow = "1"
+clap = { version = "4", features = ["derive"] }
