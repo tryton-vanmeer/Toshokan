@@ -1,17 +1,31 @@
+use std::io;
+
 use anyhow::Result;
-use clap::{Parser, Subcommand};
+use clap::{Command, CommandFactory, Parser, Subcommand};
+use clap_complete::{generate, Shell as CompletionShell};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
     #[command(subcommand)]
-    cmd: Command,
+    cmd: Commands,
 }
 
 #[derive(Subcommand, Debug)]
-enum Command {
+enum Commands {
+    /// Generate toshokan shell completions for your shell to stdout
+    Completions {
+        #[clap(value_enum)]
+        shell: CompletionShell,
+    },
     /// List installed games in your Steam library
     List,
+}
+
+fn generate_completions(shell: CompletionShell, cmd: &mut Command) -> Result<()> {
+    generate(shell, cmd, cmd.get_name().to_string(), &mut io::stdout());
+
+    Ok(())
 }
 
 fn list() -> Result<()> {
@@ -23,7 +37,8 @@ pub fn run() -> Result<()> {
     let args = Cli::parse();
 
     match args.cmd {
-        Command::List => list()?
+        Commands::Completions { shell } => generate_completions(shell, &mut Cli::command())?,
+        Commands::List => list()?,
     }
 
     Ok(())
