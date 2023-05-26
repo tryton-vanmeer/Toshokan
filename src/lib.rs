@@ -3,6 +3,7 @@ use std::env;
 use anyhow::{Context, Ok, Result};
 use steamlocate::{SteamApp, SteamDir};
 
+#[derive(Debug)]
 pub struct Game {
     pub appid: u32,
     pub name: String,
@@ -57,4 +58,15 @@ pub fn get_games() -> Result<Vec<Game>> {
     games.sort_by_key(|game| game.name.to_string());
 
     Ok(games)
+}
+
+pub fn get_game(appid: u32) -> Result<Game> {
+    let mut steam = SteamDir::locate().context("unable to find steamdir")?;
+
+    Ok(Game::from_steamapp(
+        &appid,
+        steam
+            .app(&appid)
+            .context(format!("unable to find game with appid {}", appid))?,
+    ))
 }

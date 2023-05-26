@@ -4,7 +4,7 @@ use anyhow::Result;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use colored::Colorize;
-use toshokan::get_games;
+use toshokan::{get_games, get_game};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -51,6 +51,10 @@ fn list() -> Result<()> {
 }
 
 fn info(appid: u32) -> Result<()> {
+    let game = get_game(appid)?;
+
+    println!("{:#?}", game);
+
     Ok(())
 }
 
