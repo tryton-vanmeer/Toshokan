@@ -2,7 +2,7 @@ use std::io;
 
 use anyhow::Result;
 use clap::{Command, CommandFactory, Parser, Subcommand};
-use clap_complete::{generate, Shell as CompletionShell};
+use clap_complete::{generate, Shell};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -13,16 +13,18 @@ struct Cli {
 
 #[derive(Subcommand, Debug)]
 enum Commands {
-    /// Generate toshokan shell completions for your shell to stdout
+    /// Generate shell completions. Default to current shell
     Completions {
+        /// Infer current shell when missing, fallback to bash
         #[clap(value_enum)]
-        shell: CompletionShell,
+        shell: Option<Shell>,
     },
+
     /// List installed games in your Steam library
     List,
 }
 
-fn generate_completions(shell: CompletionShell, cmd: &mut Command) -> Result<()> {
+fn generate_completions(shell: Shell, cmd: &mut Command) -> Result<()> {
     generate(shell, cmd, cmd.get_name().to_string(), &mut io::stdout());
 
     Ok(())
@@ -30,6 +32,7 @@ fn generate_completions(shell: CompletionShell, cmd: &mut Command) -> Result<()>
 
 fn list() -> Result<()> {
     println!("{}", toshokan::get_games());
+
     Ok(())
 }
 
@@ -37,7 +40,14 @@ pub fn run() -> Result<()> {
     let args = Cli::parse();
 
     match args.cmd {
-        Commands::Completions { shell } => generate_completions(shell, &mut Cli::command())?,
+        Commands::Completions { shell } => {
+            let gen = match shell {
+                Some(s) => s,
+                None => Shell::from_env().unwrap_or(Shell::Bash),
+            };
+
+            generate_completions(gen, &mut Cli::command())?
+        },
         Commands::List => list()?,
     }
 
