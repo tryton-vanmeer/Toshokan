@@ -20,7 +20,7 @@ impl DisplayHomeAsTilde for PathBuf {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Game {
     pub appid: u32,
     pub name: String,
