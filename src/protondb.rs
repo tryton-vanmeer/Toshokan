@@ -1,4 +1,7 @@
+use std::fmt::Display;
+
 use anyhow::Result;
+use colored::Colorize;
 use reqwest::{blocking::Client, header::USER_AGENT};
 use serde::Deserialize;
 
@@ -25,5 +28,18 @@ impl Summary {
         let summary: Summary = serde_json::from_str(&response.text()?)?;
 
         Ok(summary)
+    }
+}
+
+impl Display for Summary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self.tier.as_str() {
+            "borked" => write!(f, "{}", &self.tier.red()),
+            "bronze" => write!(f, "{}", &self.tier.yellow()),
+            "silver" => write!(f, "{}", &self.tier.white()),
+            "gold" => write!(f, "{}", &self.tier.yellow().bold()),
+            "platinum" => write!(f, "{}", &self.tier.white().bold()),
+            _ => f.write_str(&self.tier),
+        }
     }
 }
