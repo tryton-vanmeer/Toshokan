@@ -2,7 +2,7 @@
   <h1>Toshokan (図書館 Library)</h1>
   CLI tool for interacting with your Steam library on Linux
 
-  ![screenshot](./.github/screenshot.png)
+  ![screenshot](./assets/demo.gif)
 </div>
 
 ## Usage
