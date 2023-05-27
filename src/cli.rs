@@ -75,6 +75,13 @@ fn print_info(game: steam::Game) {
             "proton prefix".blue().bold(),
             game.proton_prefix()
         );
+
+        let protondb = protondb::Summary::from_appid(game.appid);
+
+        match protondb {
+            Ok(summary) => println!("{:<width$} {}", "proton rating".blue().bold(), summary),
+            Err(err) => eprint!("{}", err),
+        };
     }
 }
 
