@@ -1,8 +1,9 @@
-use toshokan::steam;
+use crate::protondb;
+use crate::steam;
 
 use std::io;
 
-use anyhow::{Ok, Result};
+use anyhow::Result;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use colored::Colorize;
