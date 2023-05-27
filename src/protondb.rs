@@ -4,7 +4,7 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct Summary {
-    tier: String,
+    pub tier: String,
 }
 
 impl Summary {
