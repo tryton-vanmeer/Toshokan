@@ -1,4 +1,5 @@
 mod cli;
+mod protondb;
 
 use anyhow::Result;
 
