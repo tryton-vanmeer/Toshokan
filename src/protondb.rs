@@ -3,7 +3,7 @@ use reqwest::{blocking::Client, header::USER_AGENT};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
-struct APIResult {
+struct Summary {
     tier: String,
 }
 
@@ -21,7 +21,7 @@ pub fn get_tier(appid: String) -> Result<String> {
         )
         .send()?;
 
-    let response: APIResult = serde_json::from_str(&response.text()?)?;
+    let summary: Summary = serde_json::from_str(&response.text()?)?;
 
-    Ok(response.tier)
+    Ok(summary.tier)
 }
