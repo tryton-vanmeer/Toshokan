@@ -1,6 +1,6 @@
 mod cli;
-mod steam;
 mod protondb;
+mod steam;
 
 use anyhow::Result;
 
