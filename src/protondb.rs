@@ -8,7 +8,7 @@ pub struct Summary {
 }
 
 impl Summary {
-    pub fn from_appid(appid: String) -> Result<Self> {
+    pub fn from_appid(appid: u32) -> Result<Self> {
         let url = format!(
             "https://www.protondb.com/api/v1/reports/summaries/{}.json",
             appid
