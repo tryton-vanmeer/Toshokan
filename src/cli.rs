@@ -1,10 +1,11 @@
+use toshokan::steam;
+
 use std::io;
 
 use anyhow::{Ok, Result};
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use colored::Colorize;
-use toshokan::{get_game, get_games, Game};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -47,14 +48,14 @@ fn list() -> Result<()> {
         "{}",
         format!("{:<8} {}{}", "AppID".bold(), "Name".bold(), " ".repeat(32)).underline()
     );
-    for game in get_games()? {
+    for game in steam::get_games()? {
         println!("{:<8} {}", game.appid.to_string().green().bold(), game.name);
     }
 
     Ok(())
 }
 
-fn print_info(game: Game) {
+fn print_info(game: steam::Game) {
     let width = 13;
 
     println!("{}", game.name.purple().bold());
@@ -77,13 +78,13 @@ fn print_info(game: Game) {
 }
 
 fn info(appid: u32) -> Result<()> {
-    print_info(get_game(appid)?);
+    print_info(steam::get_game(appid)?);
 
     Ok(())
 }
 
 fn info_all() -> Result<()> {
-    let games = get_games()?;
+    let games = steam::get_games()?;
     let mut games_peeker = games.iter().peekable();
 
     while let Some(game) = games_peeker.next() {
