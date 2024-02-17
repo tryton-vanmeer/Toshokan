@@ -46,11 +46,12 @@ fn generate_completions(shell: Shell, cmd: &mut Command) -> Result<()> {
 
 fn list() -> Result<()> {
     println!(
-        "{}",
-        format!("{:<8} {}{}", "AppID".bold(), "Name".bold(), " ".repeat(32)).underline()
+        "{}\t{}",
+        "AppID".bold().underline(),
+        "Name".bold().underline()
     );
     for game in steam::get_games()? {
-        println!("{:<8} {}", game.appid.to_string().green().bold(), game.name);
+        println!("{}\t{}", game.appid.to_string().bright_green(), game.name);
     }
 
     Ok(())
