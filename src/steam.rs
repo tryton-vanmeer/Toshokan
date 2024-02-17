@@ -59,20 +59,21 @@ impl Game {
     }
 }
 
-fn should_filter(name: &str) -> bool {
-    ![
-        "Proton 4.11",
-        "Proton 6.3",
-        "Proton 7.0",
-        "Proton 8.0",
-        "Proton EasyAntiCheat Runtime",
-        "Proton Experimental",
-        "Proton Hotfix",
-        "Steamworks Common Redistributables",
-        "Steam Linux Runtime - Sniper",
-        "Steam Linux Runtime - Soldier",
+fn should_filter(id: u32) -> bool {
+    [
+        1113280, // Proton 4.11
+        1420170, // Proton 5.13
+        1580130, // Proton 6.3
+        1887720, // Proton 7.0
+        2348590, // Proton 8.0
+        1826330, // Proton EasyAntiCheat Runtime
+        1493710, // Proton Experimental
+        2180100, // Proton Hotfix
+        1391110, // Steam Linux Runtime 2.0 (soldier)
+        1628350, // Steam Linux Runtime 3.0 (sniper)
+        228980,  // Steamworks Common Redistributables
     ]
-    .contains(&name)
+    .contains(&id)
 }
 
 pub fn get_games() -> Result<Vec<Game>> {
@@ -87,7 +88,7 @@ pub fn get_games() -> Result<Vec<Game>> {
                     match app {
                         Err(err) => eprintln!("failed reading app: {err}"),
                         Ok(app) => {
-                            if should_filter(app.name.as_ref().unwrap()){
+                            if !should_filter(app.app_id) {
                                 games.push(Game::from_steamapp(&app, &library))
                             }
                         }
